@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Remote Control App</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Remote Control Application</h1>
+        <button id="screenshotButton">Take Screenshot</button>
+        <button id="systemInfoButton">Get System Info</button>
+        <h2>System Information</h2>
+        <pre id="systemInfo"></pre>
+        <h2>Screenshot</h2>
+        <img id="screenshot" src="" alt="Screenshot will appear here" />
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
