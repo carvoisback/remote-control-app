@@ -9,14 +9,43 @@
 <body>
     <div class="container">
         <h1>Remote Control Application</h1>
-        <button id="screenshotButton">Take Screenshot</button>
+        <button id="take-screenshot">Take Screenshot</button>
         <button id="systemInfoButton">Get System Info</button>
         <h2>System Information</h2>
         <pre id="systemInfo"></pre>
         <h2>Screenshot</h2>
         <img id="screenshot" src="" alt="Screenshot will appear here" />
+        <div id="screenshot-url"></div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js"></script>
+    <script>
+        const socket = io();
+
+        // Manejador para el botón de captura de pantalla
+        document.getElementById('take-screenshot').addEventListener('click', () => {
+            socket.emit('getScreenshot');
+        });
+
+        // Manejar la respuesta de la captura de pantalla
+        socket.on('screenshotReady', (url) => {
+            document.getElementById('screenshot-url').innerText = `Screenshot URL: ${url}`;
+            document.getElementById('screenshot').src = url; // Mostrar la captura de pantalla en la imagen
+        });
+
+        // Manejador para el botón de información del sistema
+        document.getElementById('systemInfoButton').addEventListener('click', () => {
+            socket.emit('getSystemInfo');
+        });
+
+        // Manejar la respuesta de información del sistema
+        socket.on('systemInfo', (info) => {
+            document.getElementById('systemInfo').innerText = info;
+        });
+
+        // Manejar errores
+        socket.on('error', (message) => {
+            alert(message);
+        });
+    </script>
 </body>
 </html>
